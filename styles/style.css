@@ -1,0 +1,112 @@
+/* Variables*/
+:root {
+    --first-color: #f7f7f7;
+    --dark-first-color: #2e2e2e;
+    --second-color: #000000;
+    --third-color: #bf3838;
+    --border: #a5a5a5;
+}
+/* Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    font-size: 10px;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--dark-first-color);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 32em;
+    height: 65em;
+    background-color: var(--first-color);
+    border-radius: 1em;
+}
+
+/* Menu */
+.menu {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+}
+
+/* Display */
+.display {
+    height: 26rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin:0 2rem;
+    padding-bottom: 1rem;
+    
+}
+
+.current-display {
+    opacity: 0.7;
+    font-size: 3rem;
+}
+
+.result-display{
+    opacity: 0.7;
+    font-size: 3rem;
+    display: none;
+}
+
+.active{
+    display: block;
+}
+
+.focus{
+    opacity: 1;
+    font-size: 5rem;
+}
+
+/* Calculator */
+.calculator {
+    display: grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-template-rows:repeat(4,1fr);  
+    grid-gap: 1em; 
+    justify-items: center;
+    align-items: center;
+
+    height: 50%;
+    border-top: solid 1px var(--border);
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.number, .decimal {
+    font-size: 3em;
+}
+
+.operator {
+    font-size: 3em;
+    font-weight: 700;
+    color: #bf3838;
+}
+
+.clear-allClear {
+    font-size: 2.8em;
+    font-weight: 700;
+    color: #bf3838;
+}

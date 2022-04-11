@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/style.css">
+    <title>Calculator</title>
+</head>
+<body>
+    <main class="container">
+        <div class="menu">
+            <img src="./images/Menu.svg" alt="Menu">
+        </div>
+
+        <div class="display">
+            <div class="current-display focus">0</div>
+            <div class="result-display"> = </div>
+        </div>
+
+        <section class="calculator">
+            <button class="clear-allClear">C</button>
+            <button class="backspace"><img src="./images/Backspace.svg" alt="Backspace button"></button>
+            <button class="percentage" value="%"><img src="./images/Percentage.svg" alt="Percentage button"></button>
+            <button class="operator" value="/">/</button>
+            <button class="number">7</button>
+            <button class="number">8</button>
+            <button class="number">9</button>
+            <button class="operator" value="*">*</button>
+            <button class="number">4</button>
+            <button class="number">5</button>
+            <button class="number">6</button>
+            <button class="operator" value="-">-</button>
+            <button class="number">1</button>
+            <button class="number">2</button>
+            <button class="number">3</button>
+            <button class="operator" value="+">+</button>
+            <button><img src="./images/moon.svg" alt="Dark mode"></button>
+            <button class="number">0</button>
+            <button class="decimal">.</button>
+            <button class="equal"><img src="./images/Equal.svg" alt="Equal button"></button>
+        </section>
+    </main>
+    <script src="./scripts/buttons.js" type="module"></script>
+</body>
+
+</html>
