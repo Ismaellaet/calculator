@@ -4,7 +4,7 @@
 - **current-display** => Value where the **expression** will be shown
 
 - **result-display** = Value where the **result** of the **current-display** will be shown 
-# 
+ 
 ## Buttons
 ### Types
 - Numbers => 1,2,3,4,5,6,7,8,9,0 
