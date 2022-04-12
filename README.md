@@ -1,20 +1,22 @@
 # Calculator
 
 The intention of this project is for me to practice my Programming Logic and my skills with HTML, CSS and JavaScript
-# 
+ 
 |   Section  | Description |
 |   --------- | ------
 |   [Documentation 📚](./Documentation.md) | Know how I developed the project |
 |   [Updates 🏁](./Updates.md) | Future project updates |
-# 
-## 🚀 Installing Calculator
 
+## 🚀 Installing Calculator
+#
 To install Calculator, follow these steps:
 
 ```
 git clone git@github.com:Ismaellaet/calculator.git <repository_name>
 ```
+
 ## 📫 Contributing to Calculator
+#
 To contribute to Calculator, follow these steps:
 
 1. Bifurcate this repository.

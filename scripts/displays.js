@@ -73,12 +73,11 @@ export const createDisplaysRules = () => {
         }
     }
 
-    function continueExpression() { // Continue expression from equal if resultDisplay be focused
+    function continueExpression() { // Continue expression from result if resultDisplay be focused
         if(resultDisplay.classList.contains('focus')) {
             currentDisplay.innerHTML = resultDisplay.innerHTML.substring(2)
             currentDisplay.style.fontSize = "50px"
         }
-
     }
 
     function focusOnDisplay(display) {

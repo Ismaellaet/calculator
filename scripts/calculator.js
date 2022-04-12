@@ -18,7 +18,7 @@ export function createCalculation() {
             const previousValue = Number(expression[firstAppearance - 1]); // Get the previous value of the first appearance
             let result = previousValue / 100;   
             
-            expression.splice(firstAppearance - 1, 2, result)
+            expression.splice(firstAppearance - 1, 2, result) // Replace the previous value to result
         }        
     }
 
@@ -79,7 +79,7 @@ export function createCalculation() {
             if(expression.length >= 3) {
                 secondPriority()
             }
-        }
+        } 
     }
 
     function removeWhiteSpaces() { // Remove white spaces from expression
@@ -107,7 +107,4 @@ export function createCalculation() {
         resultDisplay.innerHTML = `= ${expression}`
     }
     showResult()
-    return {
-        
-    }
 }

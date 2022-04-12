@@ -24,7 +24,7 @@ const createButtonsEvents = () => {
     function operatorEvents() {
         const operatorsCollection = document.getElementsByClassName("operator");
 
-        for(const operator of operatorsCollection) {
+        for(const operator of operatorsCollection) { // Add events on each operator click
             operator.addEventListener('click', () => {
                 displayRules.continueExpression();
                 displayRules.processTheOperator(operator.value);

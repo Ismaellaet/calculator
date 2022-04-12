@@ -42,7 +42,7 @@
 
 - Button *Backspace* => Remove last digit of the **current-display** [x]
 
--- Theme switcher => Change between Dark Mode and Light Mode
+- Theme switcher => Change between Dark Mode and Light Mode [x]
 # 
 ## Displays Rules
 
