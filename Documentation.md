@@ -4,7 +4,7 @@
 - **current-display** => Value where the **expression** will be shown
 
 - **result-display** = Value where the **result** of the **current-display** will be shown 
-# 
+ 
 ## Buttons
 ### Types
 - Numbers => 1,2,3,4,5,6,7,8,9,0 
@@ -43,7 +43,7 @@
 - Button *Backspace* => Remove last digit of the **current-display** [x]
 
 -- Theme switcher => Change between Dark Mode and Light Mode
-# 
+
 ## Displays Rules
 
 - Operators can only be added to the expression if they are NOT followed by another operator [x]
