@@ -6,7 +6,7 @@ The intention of this project is for me to practice my Programming Logic and my 
 |   --------- | ------
 |   [Documentation 📚](./Documentation.md) | Know how I developed the project |
 |   [Updates 🏁](./Updates.md) | Future project updates |
-# 
+
 ## 🚀 Installing Calculator
 
 To install Calculator, follow these steps:
