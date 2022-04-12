@@ -1,7 +1,7 @@
 /* Variables*/
 :root {
-    --first-color: #f7f7f7;
-    --dark-first-color: #2e2e2e;
+    --background-calculator: #f7f7f7;
+    --background-color: #2e2e2e;
     --second-color: #000000;
     --third-color: #bf3838;
     --border: #a5a5a5;
@@ -22,7 +22,8 @@ html {
 body {
     width: 100vw;
     height: 100vh;
-    background-color: var(--dark-first-color);
+    background: var(--background-color);
+    color: var(--second-color);
     
     display: flex;
     justify-content: center;
@@ -32,8 +33,9 @@ body {
 .container {
     width: 32em;
     height: 65em;
-    background-color: var(--first-color);
+    background-color: var(--background-calculator);
     border-radius: 1em;
+    position: relative;
 }
 
 /* Menu */
@@ -41,6 +43,7 @@ body {
     display: flex;
     justify-content: center;
     margin-top: 1em;
+    visibility: hidden;
 }
 
 /* Display */
@@ -56,9 +59,16 @@ body {
     
 }
 
+input {
+    text-align: right;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
 .current-display {
     opacity: 0.7;
-    font-size: 3rem;
+    font-size: 4.7rem;
 }
 
 .result-display{
@@ -97,6 +107,7 @@ button {
 
 .number, .decimal {
     font-size: 3em;
+    color: var(--second-color);
 }
 
 .operator {
@@ -108,5 +119,12 @@ button {
 .clear-allClear {
     font-size: 2.8em;
     font-weight: 700;
+    color: #bf3838;
+}
+
+p {
+    position: absolute;
+    top: .5rem;
+    margin: 1rem;
     color: #bf3838;
 }

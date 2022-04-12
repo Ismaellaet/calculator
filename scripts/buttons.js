@@ -1,85 +1,59 @@
-import { Calculator } from "./calculator.js";
-import { Calculation } from "./calculator.js";
-import { Displays } from "./displays.js";
+import { createDisplaysRules } from "./displays.js";
+import { createCalculation } from "./calculator.js";
 
-const currentDisplay = document.querySelector('.current-display');
-const resultDisplay = document.querySelector('.result-display');
+const displayRules = createDisplaysRules();
+const calculation = createCalculation;
 
-
-export default function addButtons() {
-    const calculator = Calculator();
-    const display = Displays();
+const createButtonsEvents = () => {
 
     function numericalEvents() {
-        const numberCollection = document.getElementsByClassName('number'); 
+        const numbersCollection = document.getElementsByClassName("number");
 
-        for (const digit of numberCollection) {
-            digit.addEventListener('click', () => {
-                calculator.changeCurrentDisplay();
-                display.setLimit();
-
-                
-                display.addClassFocus(currentDisplay)
-                display.toggleResultDisplay();
-                display.decreaseFontSize();
-                if (currentDisplay.innerHTML == 0) {
-                    currentDisplay.innerHTML = digit.innerHTML; // Replace 0 by digit
-                } else {
-                    currentDisplay.innerHTML += digit.innerHTML; // Add number in current display
-                }
-
-                Calculation()
+        for(const digit of numbersCollection) { 
+            digit.addEventListener('click', () => { // Add events on each digit click
+                displayRules.checkLimit();
+                displayRules.continueExpression();
+                displayRules.processTheDigit(digit.innerHTML)
+                displayRules.focusOnDisplay("current");
+                displayRules.showResultDisplay();                
+                calculation()
             })
         }
     }
 
     function operatorEvents() {
-        const operatorCollection = document.getElementsByClassName('operator')
-        
+        const operatorsCollection = document.getElementsByClassName("operator");
 
-        for (const operator of operatorCollection) {
+        for(const operator of operatorsCollection) {
             operator.addEventListener('click', () => {
-                calculator.changeCurrentDisplay();
-                const isOperator = calculator.checkIfIsOperator();
-                if (isOperator) {
-                    currentDisplay.innerHTML = currentDisplay.innerHTML.replace(/(\W$)/, `${operator.value}`) // Replace last element by the operator that was clicked
-
-                } else {
-                    currentDisplay.innerHTML += operator.value; // Add operator in current display text
-                }
-
-                display.setLimit();
-                display.addClassFocus(currentDisplay)
+                displayRules.continueExpression();
+                displayRules.processTheOperator(operator.value);
+                displayRules.checkLimit();
+                displayRules.focusOnDisplay("current")
+                calculation()
             })
         }
     }
 
     function percentageEvents() {
-        const percentageButton = document.querySelector('.percentage');
+        const percentageButton = document.querySelector(".percentage");
 
         percentageButton.addEventListener('click', () => {
-            calculator.changeCurrentDisplay();
-            if (currentDisplay.innerHTML == 0) { return }
-
-            display.setLimit();
-            currentDisplay.innerHTML += percentageButton.value;
-            display.addClassFocus(currentDisplay)
-            Calculation()
+            displayRules.continueExpression();
+            displayRules.checkLimit()
+            displayRules.processThePercentage(percentageButton.value);
+            displayRules.focusOnDisplay("current");
+            calculation()
         })
     }
 
     function decimalEvents() {
         const decimalButton = document.querySelector('.decimal');
-        const isOperator = calculator.checkIfIsOperator();
 
         decimalButton.addEventListener('click', () => {
-            display.setLimit();
-            if (isOperator) {
-                currentDisplay.innerHTML += '0' + decimalButton.innerHTML; // Add 0. in current display
-            } else {
-                currentDisplay.innerHTML += decimalButton.innerHTML; // Add . in current display
-            }
-
+            displayRules.continueExpression();
+            displayRules.checkLimit();
+            displayRules.processTheDecimal(decimalButton.innerHTML);
         })
     }
 
@@ -87,27 +61,22 @@ export default function addButtons() {
         const backspaceButton = document.querySelector('.backspace');
 
         backspaceButton.addEventListener('click', () => {
-            calculator.changeCurrentDisplay();
-            if (currentDisplay.innerHTML.length < 2) { // Check if has one element in current display text
-                currentDisplay.innerHTML = "0";
-            } else {
-                currentDisplay.innerHTML = currentDisplay.innerHTML.slice(0, -1) // Remove the last number of the current display
-            }
-            
-            display.addClassFocus(currentDisplay)
-            Calculation()
+            displayRules.removeLastElement();
+            displayRules.focusOnDisplay("current");
+            calculation()
         })
     }
 
-    function clearsEvents() {
+    function clearEvents() {
         const clearsButton = document.querySelector('.clear-allClear');
+        const currentDisplay = document.querySelector('.current-display');
+        const resultDisplay = document.querySelector('.result-display');
+        
 
         clearsButton.addEventListener('click', () => {
-
-                currentDisplay.innerHTML = "0";
-
-                display.addClassFocus(currentDisplay)
-                display.classActive.remove(resultDisplay)            
+            currentDisplay.innerHTML = "0"; // Resets the current display
+            resultDisplay.classList.remove('active'); // Remove class 'active' from result display            
+            displayRules.focusOnDisplay("current");            
         })
     }
 
@@ -115,27 +84,27 @@ export default function addButtons() {
         const equalButton = document.querySelector('.equal');
 
         equalButton.addEventListener('click', () => {
-            display.addClassFocus(resultDisplay)
+            displayRules.focusOnDisplay("result");
         })
     }
 
-    function addAllEvents() {
+    function addAll() {
         try {
             numericalEvents();
             operatorEvents();
             percentageEvents();
             decimalEvents();
             backspaceEvents();
-            clearsEvents();
+            clearEvents();
             equalEvents();
-        } catch (error) {
-            console.log(error.message);
+        } catch(e) {
+            console.log(e.message);
         }
     }
 
     return {
-        addAllEvents
+        addAll
     }
 }
 
-addButtons().addAllEvents();
+createButtonsEvents().addAll()

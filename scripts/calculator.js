@@ -1,45 +1,8 @@
-import { Displays } from './displays.js';
-
-const display = Displays();
-const currentDisplay = document.querySelector('.current-display');
-const resultDisplay = document.querySelector('.result-display');
-let resultFinal;
-
-export const Calculator = () => {
+export function createCalculation() {
+    const currentDisplay = document.querySelector('.current-display');
+    const resultDisplay = document.querySelector('.result-display');
+    let expression = currentDisplay.innerHTML.split(/(?!\.)(\W)/g);
     
-    function checkIfIsOperator() {
-        const allOperators = ["+", "-", "*", "/", "%"] // All operators
-        const lastIndex = currentDisplay.innerHTML.length - 1; // Last index of current display text
-        const lastElement = currentDisplay.innerHTML[lastIndex]; // Last element of current display text
-        const lastElementIsOperator = allOperators.includes(lastElement); // Check if last element is operators
-
-        return lastElementIsOperator;
-    }
-
-    function checkIfIsNull() {
-        const isNull = currentDisplay.innerHTML === "0"; // Check if current display text is null
-
-        return isNull;
-    }
-
-    function changeCurrentDisplay() {
-        if(resultDisplay.classList.contains('focus')) {
-            currentDisplay.innerHTML = resultFinal;
-            Calculation().expression = [];
-        }
-    }
-
-    return  {
-        checkIfIsNull,
-        checkIfIsOperator,
-        changeCurrentDisplay
-    }
-}
-
-export const Calculation = () => {
-    const expression = currentDisplay.innerHTML.split(/(?!\.)(\W)/g);
-    let availableToCalculate = expression.length >= 3;
-
     const operations = {
         percentage: '%',
         multiplication: '*',
@@ -48,74 +11,103 @@ export const Calculation = () => {
         subtraction: '-',
     }
 
-    function firstPriorityCalculation() {
-        if(expression.includes(operations.percentage)) {
-            let firstAppearance = expression.findIndex(element => element === '%')
+    function calculatePercentage() {
+        const hasPercentage = expression.includes(operations.percentage) // Check if the expression has percentage
+        if(hasPercentage) {
+            let firstAppearance = expression.findIndex(element => element === '%'); // Store the index of the first appearance of the percentage
+            const previousValue = Number(expression[firstAppearance - 1]); // Get the previous value of the first appearance
+            let result = previousValue / 100;   
             
-            const value1 = expression[firstAppearance - 1];
-            
-            let result = value1 / 100;
-
-            expression.splice(firstAppearance - 1, 3, result)
+            expression.splice(firstAppearance - 1, 2, result)
         }        
     }
 
-    function secondPriorityCalculation() { // Calculates '*' and '/'
-        if(expression.includes(operations.division) || expression.includes(operations.multiplication)) {
-            let firstAppearance = expression.findIndex(element => element === '/' || element === '*')
-            const value1 = expression[firstAppearance - 1];
-            const value2 = expression[firstAppearance + 1];
+    function firstPriority() {
+        const hasMutiplication = expression.includes(operations.multiplication); // Check if has multiplication in expression
+        const hasDivision = expression.includes(operations.division); // Check if has division in expression
+
+        if(hasMutiplication || hasDivision) {
+            let firstAppearance = expression.findIndex(element => element === '*' || element === '/'); // Store the index of the first appearance of the multiplication or division
+            const previousValue = Number(expression[firstAppearance - 1]); // Get the previous value of the first appearance
+            const nextValue = Number(expression[firstAppearance + 1]) // Get the next value of the first appearance
+            const isMultiplication = expression[firstAppearance] === '*'; // Check if first appearance is multiplication
+            const isDivision = expression[firstAppearance] === '/'; // Check if first appearance is division
             let result;
 
-            if(expression[firstAppearance] === '*') {
-                result = value1 * value2
-            } else {
-                result = value1 / value2
+            if(isNaN(nextValue)) {return} // Avoids calculate NaN
+
+            if(isMultiplication) {
+                result = previousValue * nextValue;
+            }
+            
+            if(isDivision){
+                result = previousValue / nextValue;
             }
 
-            expression.splice(firstAppearance - 1, 3, result)
+            expression.splice(firstAppearance - 1, 3, result); // Replace the previous and next value to result
 
             if(expression.length >= 3) {
-                secondPriorityCalculation()
+                firstPriority()
             }
         }
     }
 
-    function thirdPriorityCalculation() { // Calculates '+' and '-'
-        if(expression.includes(operations.addition) || expression.includes(operations.subtraction)) {
-            let firstAppearance = expression.findIndex(element => element === '+' || element === '-')
-            const value1 = expression[firstAppearance - 1];
-            const value2 = expression[firstAppearance + 1];
+    function secondPriority() {
+        const hasAddition = expression.includes(operations.addition); // Check if has addition in expression
+        const hasSubtraction = expression.includes(operations.subtraction); // Check if has subtraction in expression
+
+        if(hasAddition || hasSubtraction) {
+            let firstAppearance = expression.findIndex(element => element === '+' || element === '-'); // Store the index of the first appearance of the addition or subtraction
+            const previousValue = Number(expression[firstAppearance - 1]); // Get the previous value of the first appearance
+            const nextValue = Number(expression[firstAppearance + 1]) // Get the next value of the first appearance
+            const isAddition = expression[firstAppearance] === '+'; // Check if first appearance is addition
+            const isSubtraction = expression[firstAppearance] === '-'; // Check if first appearance is subtraction
             let result;
 
-            if(expression[firstAppearance] === '+') {
-                result = Number(value1) + Number(value2)
-            } else {
-                result = Number(value1) - Number(value2)
+            if(isNaN(nextValue)) {return} // Avoids calculate NaN
+
+            if(isAddition) {
+                result = previousValue + nextValue;
+            }
+            
+            if(isSubtraction){
+                result = previousValue - nextValue;
             }
 
-            expression.splice(firstAppearance - 1, 3, result)
+            expression.splice(firstAppearance - 1, 3, result); // Replace the previous and next value to result
 
             if(expression.length >= 3) {
-                thirdPriorityCalculation()
+                secondPriority()
             }
         }
     }
 
-    if(expression.length >= 2) {
-        firstPriorityCalculation()
+    function removeWhiteSpaces() { // Remove white spaces from expression
+        if(expression.includes("")) {
+            expression = expression.filter((item) => item != "")
+        }
     }
 
-    if(availableToCalculate) {
-        firstPriorityCalculation()
-        secondPriorityCalculation()   
-        thirdPriorityCalculation()    
-    } 
-    
-    resultFinal = expression;
-    resultDisplay.innerHTML = `= ${expression}`
+    function calculateExpression() {
+        removeWhiteSpaces()
 
+        if(expression.length <= 2) {
+            calculatePercentage()
+        }
+        else if(expression.length >= 3) { 
+            calculatePercentage()
+            firstPriority()   
+            secondPriority()   
+        }
+    }
+
+    function showResult() {
+        calculateExpression()
+        expression = parseFloat(Number(expression[0]).toFixed(3))
+        resultDisplay.innerHTML = `= ${expression}`
+    }
+    showResult()
     return {
-        expression
+        
     }
 }
