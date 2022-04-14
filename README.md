@@ -8,7 +8,7 @@ The intention of this project is for me to practice my Programming Logic and my 
 |   [Updates 🏁](./Updates.md) | Future project updates |
 
 ## 🚀 Installing Calculator
-#
+
 To install Calculator, follow these steps:
 
 ```
