@@ -16,7 +16,7 @@ git clone git@github.com:Ismaellaet/calculator.git <repository_name>
 ```
 
 ## 📫 Contributing to Calculator
-#
+
 To contribute to Calculator, follow these steps:
 
 1. Bifurcate this repository.
