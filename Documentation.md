@@ -34,9 +34,9 @@
 
 - Button Operator '=' => Show result of the expression [x]
 
-- Button Percentage => Divide the number by 100
+- Button Percentage => Divide the number by 100 [x]
 
-- Button Decimal => Add decimal place
+- Button Decimal => Add decimal place [x]
 
 - Button *C* => Reset **current-display** [x]
 
@@ -54,7 +54,7 @@
 
 - Focus the **result-display** if the user requests the result, otherwise focus **current-display** [x]
 
-- Set 18 as the length limit [x]
+- Set 16 as the length limit [x]
 
 - User continues the expression from the result [x]
 
